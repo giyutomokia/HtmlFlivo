@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with {{ ai_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            background-color: #fff;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        h1 {
+            text-align: center;
+            color: #0a0a0a;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #f1f1f1;
+            text-align: left;
+        }
+        .ai-message {
+            background-color: #e1f7d5;
+            text-align: left;
+        }
+        .message span {
+            font-weight: bold;
+            color: #00796b;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .input-container input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .input-container button {
+            width: 15%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .input-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h1>Chat with {{ ai_name }}</h1>
+    
+    <div id="chat-history">
+        {% for entry in conversation_log %}
+            <div class="message user-message">
+                <span>User:</span> {{ entry.question }}
+            </div>
+            <div class="message ai-message">
+                <span>{{ ai_name }}:</span> {{ entry.response_summary }}
+            </div>
+        {% endfor %}
+    </div>
+    
+    <form method="POST" action="/">
+        <div class="input-container">
+            <input type="text" name="user_input" placeholder="Enter your question..." required />
+            <button type="submit">Send</button>
+        </div>
+    </form>
+
+    <div class="message ai-message">
+        <span>{{ ai_name }}:</span> {{ response }}
+    </div>
+</div>
+
+</body>
+</html>
